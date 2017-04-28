@@ -87,6 +87,7 @@
     <Compile Include="Module\database.vb" />
     <Compile Include="Module\barcode.vb" />
     <Compile Include="Module\mod_system.vb" />
+    <Compile Include="Module\Reporting.vb" />
     <Compile Include="Module\security.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

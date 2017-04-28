@@ -30,16 +30,15 @@ Partial Class frmBarcode
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnBrowse = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.btnReport = New System.Windows.Forms.Button()
         Me.dgImage = New System.Windows.Forms.DataGridView()
-        Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
-        Me.ImageList2 = New System.Windows.Forms.ImageList(Me.components)
-        Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
         Me.BranchCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Pawnticket = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Image = New System.Windows.Forms.DataGridViewImageColumn()
         Me.Description = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Price = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
+        Me.ImageList2 = New System.Windows.Forms.ImageList(Me.components)
+        Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgImage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -97,7 +96,6 @@ Partial Class frmBarcode
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.btnReport)
         Me.GroupBox2.Controls.Add(Me.dgImage)
         Me.GroupBox2.Controls.Add(Me.btnBarcode)
         Me.GroupBox2.Controls.Add(Me.btnPrint)
@@ -107,15 +105,6 @@ Partial Class frmBarcode
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Barcode Info"
-        '
-        'btnReport
-        '
-        Me.btnReport.Location = New System.Drawing.Point(719, 95)
-        Me.btnReport.Name = "btnReport"
-        Me.btnReport.Size = New System.Drawing.Size(79, 28)
-        Me.btnReport.TabIndex = 13
-        Me.btnReport.Text = "Report"
-        Me.btnReport.UseVisualStyleBackColor = True
         '
         'dgImage
         '
@@ -132,23 +121,6 @@ Partial Class frmBarcode
         Me.dgImage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgImage.Size = New System.Drawing.Size(707, 308)
         Me.dgImage.TabIndex = 9
-        '
-        'PrintDocument1
-        '
-        '
-        'ImageList2
-        '
-        Me.ImageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit
-        Me.ImageList2.ImageSize = New System.Drawing.Size(16, 16)
-        Me.ImageList2.TransparentColor = System.Drawing.Color.Transparent
-        '
-        'ReportViewer1
-        '
-        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "BarCode.Report1.rdlc"
-        Me.ReportViewer1.Location = New System.Drawing.Point(16, 417)
-        Me.ReportViewer1.Name = "ReportViewer1"
-        Me.ReportViewer1.Size = New System.Drawing.Size(804, 336)
-        Me.ReportViewer1.TabIndex = 9
         '
         'BranchCode
         '
@@ -174,13 +146,27 @@ Partial Class frmBarcode
         Me.Description.HeaderText = "Description"
         Me.Description.Name = "Description"
         Me.Description.ReadOnly = True
-        Me.Description.Width = 150
+        Me.Description.Width = 200
         '
         'Price
         '
         Me.Price.HeaderText = "Price"
         Me.Price.Name = "Price"
         Me.Price.ReadOnly = True
+        '
+        'ImageList2
+        '
+        Me.ImageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit
+        Me.ImageList2.ImageSize = New System.Drawing.Size(16, 16)
+        Me.ImageList2.TransparentColor = System.Drawing.Color.Transparent
+        '
+        'ReportViewer1
+        '
+        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "BarCode.Report1.rdlc"
+        Me.ReportViewer1.Location = New System.Drawing.Point(16, 417)
+        Me.ReportViewer1.Name = "ReportViewer1"
+        Me.ReportViewer1.Size = New System.Drawing.Size(804, 336)
+        Me.ReportViewer1.TabIndex = 9
         '
         'frmBarcode
         '
@@ -209,7 +195,6 @@ Partial Class frmBarcode
     Friend WithEvents dgImage As System.Windows.Forms.DataGridView
     Friend WithEvents PrintDocument1 As System.Drawing.Printing.PrintDocument
     Friend WithEvents ImageList2 As System.Windows.Forms.ImageList
-    Friend WithEvents btnReport As System.Windows.Forms.Button
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents BranchCode As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Pawnticket As System.Windows.Forms.DataGridViewTextBoxColumn

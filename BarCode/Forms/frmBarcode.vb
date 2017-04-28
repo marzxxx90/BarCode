@@ -10,9 +10,14 @@ Public Class frmBarcode
     Private BarHash As New Hashtable
     Private isDone As Boolean
     Private count As Integer
+    Dim barcode As New DataSet("Barcode")
+    Dim barcodeImage As DataTable
+    Dim store As DataRow
+    Dim myimage As Image
 
     Private Sub btnBarcode_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBarcode.Click
         If txtPath.Text = "" Then Exit Sub
+        dgImage.Rows.Clear()
         'Load Excel
         Dim oXL As New Excel.Application
         Dim oWB As Excel.Workbook
@@ -52,7 +57,7 @@ unloadObj:
         oXL = Nothing
 
         txtPath.Text = ""
-        If isDone Then MsgBox("Item Loaded", MsgBoxStyle.Information)
+        If isDone Then MsgBox("Success", MsgBoxStyle.Information)
 
     End Sub
 
@@ -76,23 +81,11 @@ unloadObj:
         Return False
     End Function
 
-    Private Sub PrintDocument1_PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
-        'Dim bm As New Bitmap(Me.dgImage.Width, Me.dgImage.Height)
-        'dgImage.DrawToBitmap(bm, New Rectangle(0, 0, Me.dgImage.Width, Me.dgImage.Height))
-        'e.Graphics.DrawImage(bm, 0, 0)
-
-        'For Each dr As DataGridViewRow In dgImage.Rows
-        '    Dim bm As New Bitmap(dr.Cells(0).Value.Width, dr.Cells(0).Value.Height)
-        '    dgImage.DrawToBitmap(bm, New Rectangle(0, 0, Me.dgImage.Width, Me.dgImage.Height))
-        'Next
-       
-        'e.Graphics.DrawImage(bm, 0, 0)
-    End Sub
-
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
-        PrintDocument1.Print()
+        PrintBarcode()
     End Sub
 
+    'Select Source of Image, Image Pixel width, Image Pexel Height
     Public Overloads Shared Function ResizeImage(ByVal bmSource As Drawing.Bitmap, ByVal TargetWidth As Int32, ByVal TargetHeight As Int32) As Drawing.Bitmap
         Dim bmDest As New Drawing.Bitmap(TargetWidth, TargetHeight, Drawing.Imaging.PixelFormat.Format32bppArgb)
 
@@ -131,23 +124,53 @@ unloadObj:
         Return bmDest
     End Function
 
-    Private Sub btnReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReport.Click
-        Dim stores As New DataSet("Barcode")
-        Dim barcodeImage As DataTable
-        Dim store As DataRow
-        Dim myimage As Image
+    'Private Sub btnReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReport.Click
+    '    barcode.Clear()
+    '    For Each datarow As DataGridViewRow In dgImage.Rows
 
-        ' Add the new table
-        barcodeImage = stores.Tables.Add("BarcodeImage")
+    '        myimage = datarow.Cells(2).Value
+    '        Dim mybytearray As Byte()
+    '        Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
+    '        myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
+    '        mybytearray = ms.ToArray()
 
-        ' Define the columns
-        With barcodeImage
-            .Columns.Add("Image", GetType(String))
-            .Columns.Add("Description", GetType(String))
-            .Columns.Add("Price", GetType(Integer))
-            .Columns.Add("Pawnticket", GetType(String))
-            .Columns.Add("BranchCode", GetType(String))
-        End With
+    '        Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
+
+    '        ' Create a new row
+    '        store = barcodeImage.NewRow
+    '        With store
+    '            .Item("Image") = barcodeBase64
+    '            .Item("Description") = datarow.Cells(3).Value
+    '            .Item("Price") = datarow.Cells(4).Value
+    '            .Item("Pawnticket") = datarow.Cells(1).Value
+    '            .Item("BranchCode") = datarow.Cells(0).Value
+    '        End With
+
+    '        ' Add it
+    '        barcodeImage.Rows.Add(store)
+    '    Next
+
+    '    Dim rds = New ReportDataSource("dsBarcodeImage", barcode.Tables(0))
+    '    Me.ReportViewer1.LocalReport.DataSources.Clear()
+    '    Me.ReportViewer1.LocalReport.DataSources.Add(rds)
+    '    Me.ReportViewer1.LocalReport.ReportPath = "Reports\Report1.rdlc"
+
+    '    Me.ReportViewer1.RefreshReport()
+
+    'End Sub
+
+    Private Sub PrintBarcode()
+        Dim ans As DialogResult = _
+            MsgBox("Do you want to print?", MsgBoxStyle.YesNo + MsgBoxStyle.Information + MsgBoxStyle.DefaultButton2, "Print")
+        If ans = Windows.Forms.DialogResult.No Then Exit Sub
+
+        Dim autoPrintPT As Reporting
+        Dim report As LocalReport = New LocalReport
+        autoPrintPT = New Reporting
+        Dim oPS As New System.Drawing.Printing.PrinterSettings
+        barcode.Clear()
+
+        If oPS Is Nothing Then Exit Sub
 
         For Each datarow As DataGridViewRow In dgImage.Rows
 
@@ -173,16 +196,40 @@ unloadObj:
             barcodeImage.Rows.Add(store)
         Next
 
-        Dim rds = New ReportDataSource("dsBarcodeImage", stores.Tables(0))
-        Me.ReportViewer1.LocalReport.DataSources.Clear()
-        Me.ReportViewer1.LocalReport.DataSources.Add(rds)
-        Me.ReportViewer1.LocalReport.ReportPath = "Reports\Report1.rdlc"
+        report.ReportPath = "Reports\Report1.rdlc"
+        report.DataSources.Add(New ReportDataSource("dsBarcodeImage", barcode.Tables(0)))
 
-        Me.ReportViewer1.RefreshReport()
+        Dim addParameters As New Dictionary(Of String, String)
 
+
+        If Not addParameters Is Nothing Then
+            For Each nPara In addParameters
+                Dim tmpPara As New ReportParameter
+                tmpPara.Name = nPara.Key
+                tmpPara.Values.Add(nPara.Value)
+                report.SetParameters(New ReportParameter() {tmpPara})
+                Console.WriteLine(String.Format("{0}: {1}", nPara.Key, nPara.Value))
+            Next
+        End If
+
+        autoPrintPT.Export(report)
+        autoPrintPT.m_currentPageIndex = 0
+        autoPrintPT.Print(oPS.PrinterName)
+
+        Me.Focus()
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub frmBarcode_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        ' Add the new table
+        barcodeImage = barcode.Tables.Add("BarcodeImage")
 
+        ' Define the columns
+        With barcodeImage
+            .Columns.Add("Image", GetType(String))
+            .Columns.Add("Description", GetType(String))
+            .Columns.Add("Price", GetType(Integer))
+            .Columns.Add("Pawnticket", GetType(String))
+            .Columns.Add("BranchCode", GetType(String))
+        End With
     End Sub
 End Class
