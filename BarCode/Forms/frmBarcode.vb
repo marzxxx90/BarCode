@@ -6,7 +6,7 @@ Imports Microsoft.Reporting.WinForms
 
 Public Class frmBarcode
 
-    Const INTEGRITY_CHECK As String = "9nKFB3fmcquj4CNHjDz7anVffZbhB8GHWwqe9YzrZFgDEJqmtKEaBA=="
+    Const INTEGRITY_CHECK As String = "ABdkHSjHhCyWyjKX+N2qF64H61OXEuf9W3VqvJnRb9eeeVcUKkXHfsOaln8FbsAFwR4yS8UMxOv2co7QeCElZg=="
     Private BarHash As New Hashtable
     Private isDone As Boolean
     Private count As Integer
@@ -37,11 +37,7 @@ Public Class frmBarcode
 
         Me.Enabled = False
         For cnt = 2 To MaxEntries
-            dgImage.Rows.Add(Code128(oSheet.Cells(cnt, 1).Value.ToString, "A"), oSheet.Cells(cnt, 2).Value.ToString, oSheet.Cells(cnt, 3).Value.ToString)
-
-            Console.WriteLine("ITEM CODE " & oSheet.Cells(cnt, 1).Value)
-            Console.WriteLine("DESCRIPTION " & oSheet.Cells(cnt, 2).Value)
-            Console.WriteLine("PRICE " & oSheet.Cells(cnt, 3).Value)
+            dgImage.Rows.Add(oSheet.Cells(cnt, 1).Value.ToString, oSheet.Cells(cnt, 2).Value.ToString, Code128(oSheet.Cells(cnt, 3).Value.ToString, "A"), oSheet.Cells(cnt, 4).Value.ToString, oSheet.Cells(cnt, 5).Value.ToString)
             Application.DoEvents()
         Next
 
@@ -135,67 +131,12 @@ unloadObj:
         Return bmDest
     End Function
 
-    Private Sub dgImage_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgImage.CellContentClick
-        'If e.RowIndex >= 0 Then
-        '    Dim row As DataGridViewRow
-        '    row = Me.dgImage.Rows(e.RowIndex)
-        '    PictureBox1.Image = row.Cells("Column1").Value
-
-        'End If
-    End Sub
-
-    Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
-        'For Each dr As DataGridViewRow In dgImage.Rows
-
-
-        'Next
-
-    End Sub
-
     Private Sub btnReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReport.Click
-        'Dim ds As New DataSet
-        'Dim dt As DataTable
-        'Dim dr As DataRow
-        'Dim ImageColumn As DataColumn
-        'Dim myimage As Image
-
-        'dt = New DataTable()
-        'ImageColumn = New DataColumn("Image", Type.GetType("System.String"))
-
-        'dt.Columns.Add(ImageColumn)
-        'dr = dt.NewRow()
-
-        'For Each datarow As DataGridViewRow In dgImage.Rows
-        '    myimage = datarow.Cells(0).Value
-        '    Dim mybytearray As Byte()
-        '    Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
-        '    myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
-        '    mybytearray = ms.ToArray()
-
-        '    Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
-
-        '    dr("Image") = barcodeBase64
-        '    dt.Rows.Add(dr)
-        'Next
-        'ds.Tables.Add(dt)
-
-        'Console.WriteLine("...........................")
-        'For Each dr In ds.Tables(0).Rows
-        '    Console.WriteLine("Value " & dr.Item("Image"))
-        'Next
-        ' ''Set report parameter
-        ''Dim param As New Microsoft.Reporting.WinForms.ReportParameter("txtImage", barcodeBase64, False)
-        ''Me.ReportViewer1.LocalReport.SetParameters(New Microsoft.Reporting.WinForms.ReportParameter() {param})
-
-        'Me.ReportViewer1.RefreshReport()
-    End Sub
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Dim stores As New DataSet("Barcode")
         Dim barcodeImage As DataTable
         Dim store As DataRow
         Dim myimage As Image
-  
+
         ' Add the new table
         barcodeImage = stores.Tables.Add("BarcodeImage")
 
@@ -204,11 +145,13 @@ unloadObj:
             .Columns.Add("Image", GetType(String))
             .Columns.Add("Description", GetType(String))
             .Columns.Add("Price", GetType(Integer))
+            .Columns.Add("Pawnticket", GetType(String))
+            .Columns.Add("BranchCode", GetType(String))
         End With
-       
+
         For Each datarow As DataGridViewRow In dgImage.Rows
-           
-            myimage = datarow.Cells(0).Value
+
+            myimage = datarow.Cells(2).Value
             Dim mybytearray As Byte()
             Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
             myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
@@ -220,27 +163,15 @@ unloadObj:
             store = barcodeImage.NewRow
             With store
                 .Item("Image") = barcodeBase64
-                .Item("Description") = datarow.Cells(1).Value
-                .Item("Price") = datarow.Cells(2).Value
+                .Item("Description") = datarow.Cells(3).Value
+                .Item("Price") = datarow.Cells(4).Value
+                .Item("Pawnticket") = datarow.Cells(1).Value
+                .Item("BranchCode") = datarow.Cells(0).Value
             End With
 
             ' Add it
             barcodeImage.Rows.Add(store)
         Next
-
-        'Dim bs As BindingSource
-        'bs = New BindingSource()
-        'bs.DataSource = stores.Tables("BarcodeImage")
-        'Dim rs As ReportDataSource
-        'rs = New ReportDataSource()
-        'rs.Name = "dsBarcodeImage"
-        'rs.Value = bs
-
-        ''Me.ReportViewer1.RefreshReport()
-        ''Me.ReportViewer1.Reset()
-        'Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "Reports\Report1.rdlc"
-        'Me.ReportViewer1.LocalReport.DataSources.Clear()
-        'Me.ReportViewer1.LocalReport.DataSources.Add(rs)
 
         Dim rds = New ReportDataSource("dsBarcodeImage", stores.Tables(0))
         Me.ReportViewer1.LocalReport.DataSources.Clear()
@@ -248,6 +179,10 @@ unloadObj:
         Me.ReportViewer1.LocalReport.ReportPath = "Reports\Report1.rdlc"
 
         Me.ReportViewer1.RefreshReport()
+
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
     End Sub
 End Class

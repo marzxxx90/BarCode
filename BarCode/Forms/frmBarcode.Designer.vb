@@ -31,16 +31,15 @@ Partial Class frmBarcode
         Me.btnBrowse = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnReport = New System.Windows.Forms.Button()
-        Me.btnAdd = New System.Windows.Forms.Button()
-        Me.btnDisplay = New System.Windows.Forms.Button()
         Me.dgImage = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.ImageList2 = New System.Windows.Forms.ImageList(Me.components)
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.BranchCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Pawnticket = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Image = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.Description = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Price = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgImage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -48,7 +47,7 @@ Partial Class frmBarcode
         '
         'btnBarcode
         '
-        Me.btnBarcode.Location = New System.Drawing.Point(447, 19)
+        Me.btnBarcode.Location = New System.Drawing.Point(719, 19)
         Me.btnBarcode.Name = "btnBarcode"
         Me.btnBarcode.Size = New System.Drawing.Size(79, 32)
         Me.btnBarcode.TabIndex = 2
@@ -57,7 +56,7 @@ Partial Class frmBarcode
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(447, 65)
+        Me.btnPrint.Location = New System.Drawing.Point(719, 57)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(79, 32)
         Me.btnPrint.TabIndex = 3
@@ -73,7 +72,7 @@ Partial Class frmBarcode
         Me.txtPath.Location = New System.Drawing.Point(6, 19)
         Me.txtPath.Name = "txtPath"
         Me.txtPath.ReadOnly = True
-        Me.txtPath.Size = New System.Drawing.Size(462, 20)
+        Me.txtPath.Size = New System.Drawing.Size(743, 20)
         Me.txtPath.TabIndex = 6
         '
         'GroupBox1
@@ -82,14 +81,14 @@ Partial Class frmBarcode
         Me.GroupBox1.Controls.Add(Me.txtPath)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(532, 60)
+        Me.GroupBox1.Size = New System.Drawing.Size(804, 60)
         Me.GroupBox1.TabIndex = 7
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "File"
         '
         'btnBrowse
         '
-        Me.btnBrowse.Location = New System.Drawing.Point(483, 14)
+        Me.btnBrowse.Location = New System.Drawing.Point(755, 14)
         Me.btnBrowse.Name = "btnBrowse"
         Me.btnBrowse.Size = New System.Drawing.Size(43, 29)
         Me.btnBrowse.TabIndex = 8
@@ -98,46 +97,25 @@ Partial Class frmBarcode
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.btnReport)
-        Me.GroupBox2.Controls.Add(Me.btnAdd)
-        Me.GroupBox2.Controls.Add(Me.btnDisplay)
         Me.GroupBox2.Controls.Add(Me.dgImage)
         Me.GroupBox2.Controls.Add(Me.btnBarcode)
         Me.GroupBox2.Controls.Add(Me.btnPrint)
         Me.GroupBox2.Location = New System.Drawing.Point(16, 78)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(532, 333)
+        Me.GroupBox2.Size = New System.Drawing.Size(804, 333)
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Barcode Info"
         '
         'btnReport
         '
-        Me.btnReport.Location = New System.Drawing.Point(447, 195)
+        Me.btnReport.Location = New System.Drawing.Point(719, 95)
         Me.btnReport.Name = "btnReport"
-        Me.btnReport.Size = New System.Drawing.Size(79, 43)
+        Me.btnReport.Size = New System.Drawing.Size(79, 28)
         Me.btnReport.TabIndex = 13
         Me.btnReport.Text = "Report"
         Me.btnReport.UseVisualStyleBackColor = True
-        '
-        'btnAdd
-        '
-        Me.btnAdd.Location = New System.Drawing.Point(447, 141)
-        Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(79, 48)
-        Me.btnAdd.TabIndex = 12
-        Me.btnAdd.Text = "Add to Image List"
-        Me.btnAdd.UseVisualStyleBackColor = True
-        '
-        'btnDisplay
-        '
-        Me.btnDisplay.Location = New System.Drawing.Point(447, 103)
-        Me.btnDisplay.Name = "btnDisplay"
-        Me.btnDisplay.Size = New System.Drawing.Size(79, 32)
-        Me.btnDisplay.TabIndex = 11
-        Me.btnDisplay.Text = "Display"
-        Me.btnDisplay.UseVisualStyleBackColor = True
         '
         'dgImage
         '
@@ -145,35 +123,15 @@ Partial Class frmBarcode
         Me.dgImage.AllowUserToDeleteRows = False
         Me.dgImage.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgImage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgImage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
+        Me.dgImage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.BranchCode, Me.Pawnticket, Me.Image, Me.Description, Me.Price})
         Me.dgImage.Location = New System.Drawing.Point(6, 19)
         Me.dgImage.Name = "dgImage"
         Me.dgImage.ReadOnly = True
         Me.dgImage.RowHeadersVisible = False
         Me.dgImage.RowHeadersWidth = 65
         Me.dgImage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgImage.Size = New System.Drawing.Size(435, 308)
+        Me.dgImage.Size = New System.Drawing.Size(707, 308)
         Me.dgImage.TabIndex = 9
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Image"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Width = 200
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Description"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        Me.Column2.Width = 150
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Price"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
         '
         'PrintDocument1
         '
@@ -187,25 +145,48 @@ Partial Class frmBarcode
         'ReportViewer1
         '
         Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "BarCode.Report1.rdlc"
-        Me.ReportViewer1.Location = New System.Drawing.Point(554, 12)
+        Me.ReportViewer1.Location = New System.Drawing.Point(16, 417)
         Me.ReportViewer1.Name = "ReportViewer1"
-        Me.ReportViewer1.Size = New System.Drawing.Size(804, 393)
+        Me.ReportViewer1.Size = New System.Drawing.Size(804, 336)
         Me.ReportViewer1.TabIndex = 9
         '
-        'Button1
+        'BranchCode
         '
-        Me.Button1.Location = New System.Drawing.Point(447, 244)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(79, 36)
-        Me.Button1.TabIndex = 14
-        Me.Button1.Text = "Dataset"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.BranchCode.HeaderText = "Branch Code"
+        Me.BranchCode.Name = "BranchCode"
+        Me.BranchCode.ReadOnly = True
+        '
+        'Pawnticket
+        '
+        Me.Pawnticket.HeaderText = "Pawnticket"
+        Me.Pawnticket.Name = "Pawnticket"
+        Me.Pawnticket.ReadOnly = True
+        '
+        'Image
+        '
+        Me.Image.HeaderText = "Image"
+        Me.Image.Name = "Image"
+        Me.Image.ReadOnly = True
+        Me.Image.Width = 200
+        '
+        'Description
+        '
+        Me.Description.HeaderText = "Description"
+        Me.Description.Name = "Description"
+        Me.Description.ReadOnly = True
+        Me.Description.Width = 150
+        '
+        'Price
+        '
+        Me.Price.HeaderText = "Price"
+        Me.Price.Name = "Price"
+        Me.Price.ReadOnly = True
         '
         'frmBarcode
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1370, 417)
+        Me.ClientSize = New System.Drawing.Size(826, 750)
         Me.Controls.Add(Me.ReportViewer1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -227,13 +208,12 @@ Partial Class frmBarcode
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents dgImage As System.Windows.Forms.DataGridView
     Friend WithEvents PrintDocument1 As System.Drawing.Printing.PrintDocument
-    Friend WithEvents btnDisplay As System.Windows.Forms.Button
-    Friend WithEvents btnAdd As System.Windows.Forms.Button
-    Friend WithEvents Column1 As System.Windows.Forms.DataGridViewImageColumn
-    Friend WithEvents Column2 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ImageList2 As System.Windows.Forms.ImageList
     Friend WithEvents btnReport As System.Windows.Forms.Button
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents BranchCode As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Pawnticket As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Image As System.Windows.Forms.DataGridViewImageColumn
+    Friend WithEvents Description As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Price As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
