@@ -30,6 +30,7 @@ Partial Class frmBarcode
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnBrowse = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.btnReport = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnDisplay = New System.Windows.Forms.Button()
         Me.dgImage = New System.Windows.Forms.DataGridView()
@@ -38,8 +39,8 @@ Partial Class frmBarcode
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.ImageList2 = New System.Windows.Forms.ImageList(Me.components)
-        Me.btnReport = New System.Windows.Forms.Button()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgImage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -97,6 +98,7 @@ Partial Class frmBarcode
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.btnReport)
         Me.GroupBox2.Controls.Add(Me.btnAdd)
         Me.GroupBox2.Controls.Add(Me.btnDisplay)
@@ -109,6 +111,15 @@ Partial Class frmBarcode
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Barcode Info"
+        '
+        'btnReport
+        '
+        Me.btnReport.Location = New System.Drawing.Point(447, 195)
+        Me.btnReport.Name = "btnReport"
+        Me.btnReport.Size = New System.Drawing.Size(79, 43)
+        Me.btnReport.TabIndex = 13
+        Me.btnReport.Text = "Report"
+        Me.btnReport.UseVisualStyleBackColor = True
         '
         'btnAdd
         '
@@ -173,28 +184,28 @@ Partial Class frmBarcode
         Me.ImageList2.ImageSize = New System.Drawing.Size(16, 16)
         Me.ImageList2.TransparentColor = System.Drawing.Color.Transparent
         '
-        'btnReport
-        '
-        Me.btnReport.Location = New System.Drawing.Point(447, 195)
-        Me.btnReport.Name = "btnReport"
-        Me.btnReport.Size = New System.Drawing.Size(79, 43)
-        Me.btnReport.TabIndex = 13
-        Me.btnReport.Text = "Report"
-        Me.btnReport.UseVisualStyleBackColor = True
-        '
         'ReportViewer1
         '
         Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "BarCode.Report1.rdlc"
         Me.ReportViewer1.Location = New System.Drawing.Point(554, 12)
         Me.ReportViewer1.Name = "ReportViewer1"
-        Me.ReportViewer1.Size = New System.Drawing.Size(375, 176)
+        Me.ReportViewer1.Size = New System.Drawing.Size(804, 393)
         Me.ReportViewer1.TabIndex = 9
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(447, 244)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(79, 36)
+        Me.Button1.TabIndex = 14
+        Me.Button1.Text = "Dataset"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'frmBarcode
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(941, 417)
+        Me.ClientSize = New System.Drawing.Size(1370, 417)
         Me.Controls.Add(Me.ReportViewer1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -224,4 +235,5 @@ Partial Class frmBarcode
     Friend WithEvents ImageList2 As System.Windows.Forms.ImageList
     Friend WithEvents btnReport As System.Windows.Forms.Button
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

@@ -153,19 +153,101 @@ unloadObj:
     End Sub
 
     Private Sub btnReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReport.Click
+        'Dim ds As New DataSet
+        'Dim dt As DataTable
+        'Dim dr As DataRow
+        'Dim ImageColumn As DataColumn
+        'Dim myimage As Image
+
+        'dt = New DataTable()
+        'ImageColumn = New DataColumn("Image", Type.GetType("System.String"))
+
+        'dt.Columns.Add(ImageColumn)
+        'dr = dt.NewRow()
+
+        'For Each datarow As DataGridViewRow In dgImage.Rows
+        '    myimage = datarow.Cells(0).Value
+        '    Dim mybytearray As Byte()
+        '    Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
+        '    myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
+        '    mybytearray = ms.ToArray()
+
+        '    Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
+
+        '    dr("Image") = barcodeBase64
+        '    dt.Rows.Add(dr)
+        'Next
+        'ds.Tables.Add(dt)
+
+        'Console.WriteLine("...........................")
+        'For Each dr In ds.Tables(0).Rows
+        '    Console.WriteLine("Value " & dr.Item("Image"))
+        'Next
+        ' ''Set report parameter
+        ''Dim param As New Microsoft.Reporting.WinForms.ReportParameter("txtImage", barcodeBase64, False)
+        ''Me.ReportViewer1.LocalReport.SetParameters(New Microsoft.Reporting.WinForms.ReportParameter() {param})
+
+        'Me.ReportViewer1.RefreshReport()
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Dim stores As New DataSet("Barcode")
+        Dim barcodeImage As DataTable
+        Dim store As DataRow
         Dim myimage As Image
-        myimage = dgImage.CurrentRow.Cells(0).Value
-        Dim mybytearray As Byte()
-        Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
-        myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
-        mybytearray = ms.ToArray()
+  
+        ' Add the new table
+        barcodeImage = stores.Tables.Add("BarcodeImage")
 
-        Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
+        ' Define the columns
+        With barcodeImage
+            .Columns.Add("Image", GetType(String))
+            .Columns.Add("Description", GetType(String))
+            .Columns.Add("Price", GetType(Integer))
+        End With
+       
+        For Each datarow As DataGridViewRow In dgImage.Rows
+           
+            myimage = datarow.Cells(0).Value
+            Dim mybytearray As Byte()
+            Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
+            myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
+            mybytearray = ms.ToArray()
 
-        'Set report parameter
-        Dim param As New Microsoft.Reporting.WinForms.ReportParameter("txtImage", barcodeBase64, False)
-        Me.ReportViewer1.LocalReport.SetParameters(New Microsoft.Reporting.WinForms.ReportParameter() {param})
+            Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
+
+            ' Create a new row
+            store = barcodeImage.NewRow
+            With store
+                .Item("Image") = barcodeBase64
+                .Item("Description") = datarow.Cells(1).Value
+                .Item("Price") = datarow.Cells(2).Value
+            End With
+
+            ' Add it
+            barcodeImage.Rows.Add(store)
+        Next
+
+        'Dim bs As BindingSource
+        'bs = New BindingSource()
+        'bs.DataSource = stores.Tables("BarcodeImage")
+        'Dim rs As ReportDataSource
+        'rs = New ReportDataSource()
+        'rs.Name = "dsBarcodeImage"
+        'rs.Value = bs
+
+        ''Me.ReportViewer1.RefreshReport()
+        ''Me.ReportViewer1.Reset()
+        'Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "Reports\Report1.rdlc"
+        'Me.ReportViewer1.LocalReport.DataSources.Clear()
+        'Me.ReportViewer1.LocalReport.DataSources.Add(rs)
+
+        Dim rds = New ReportDataSource("dsBarcodeImage", stores.Tables(0))
+        Me.ReportViewer1.LocalReport.DataSources.Clear()
+        Me.ReportViewer1.LocalReport.DataSources.Add(rds)
+        Me.ReportViewer1.LocalReport.ReportPath = "Reports\Report1.rdlc"
 
         Me.ReportViewer1.RefreshReport()
+
     End Sub
 End Class
