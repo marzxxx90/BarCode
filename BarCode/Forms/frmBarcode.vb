@@ -147,7 +147,7 @@ unloadObj:
         For Each datarow As DataGridViewRow In dgImage.Rows
 
             myimage = datarow.Cells(2).Value
-            'myimage = ResizeImage(myimage, 375, 180)
+            myimage = ResizeImage(myimage, 120, 75)
             Dim mybytearray As Byte()
             Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
             myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
@@ -211,7 +211,7 @@ unloadObj:
         For Each datarow As DataGridViewRow In dgImage.Rows
 
             myimage = datarow.Cells(2).Value
-            'myimage = ResizeImage(myimage, 375, 180)
+            myimage = ResizeImage(myimage, 120, 80)
             Dim mybytearray As Byte()
             Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
             myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
@@ -241,5 +241,15 @@ unloadObj:
         Me.ReportViewer1.RefreshReport()
     End Sub
 
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        PictureBox1.Image = ResizeImage(Code128(TextBox1.Text, "a", "Sample"), 120, 80)
+    End Sub
 
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+        PictureBox2.Image = ResizeImage(Code128(TextBox1.Text, "a", "Sample"), 178, 80)
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        PictureBox3.Image = Code128(TextBox1.Text, "a", "Sample")
+    End Sub
 End Class

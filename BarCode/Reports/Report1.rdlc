@@ -57,10 +57,10 @@
               <Width>1.16667in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.11458in</Width>
+              <Width>0.05208in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.79167in</Width>
+              <Width>1.23959in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -221,6 +221,16 @@
                         <Border>
                           <Style>None</Style>
                         </Border>
+                        <TopBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </TopBorder>
+                        <BottomBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </BottomBorder>
                         <LeftBorder>
                           <Color>Black</Color>
                           <Style>Solid</Style>
@@ -244,6 +254,16 @@
                         <Border>
                           <Style>None</Style>
                         </Border>
+                        <TopBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </TopBorder>
+                        <BottomBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </BottomBorder>
                       </Style>
                     </Image>
                   </CellContents>
@@ -272,6 +292,16 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <TopBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </TopBorder>
+                        <BottomBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </BottomBorder>
                         <RightBorder>
                           <Color>Black</Color>
                           <Style>Solid</Style>
@@ -296,7 +326,7 @@
                             <TextRun>
                               <Value>=Fields!Pawnticket.Value &amp; "-" &amp; fields!BranchCode.value &amp; vbCrLf &amp; "SRP " &amp; Fields!Price.Value</Value>
                               <Style>
-                                <FontSize>14pt</FontSize>
+                                <FontSize>12pt</FontSize>
                                 <Format>E2</Format>
                               </Style>
                             </TextRun>
@@ -310,6 +340,16 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <TopBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </TopBorder>
+                        <BottomBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </BottomBorder>
                         <RightBorder>
                           <Color>Black</Color>
                           <Style>Solid</Style>
@@ -350,9 +390,8 @@
         </TablixRowHierarchy>
         <DataSetName>dsBarcodeImage</DataSetName>
         <Top>0.06944in</Top>
-        <Left>0.07682in</Left>
         <Height>0.89583in</Height>
-        <Width>3.125in</Width>
+        <Width>2.51042in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -366,7 +405,7 @@
   <Code>Public Function GetBarcodeImageHeader(ByVal barcodebase64 As String) As Byte()     
 	Return Convert.FromBase64String(barcodebase64)
 End Function    </Code>
-  <Width>7.36905in</Width>
+  <Width>8.5in</Width>
   <Page>
     <PageHeader>
       <Height>0.45833in</Height>
@@ -394,7 +433,6 @@ End Function    </Code>
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
           <Top>0.14583in</Top>
-          <Left>0.07682in</Left>
           <Height>0.25in</Height>
           <Width>2.15292in</Width>
           <Style>

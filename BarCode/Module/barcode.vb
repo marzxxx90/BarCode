@@ -466,12 +466,12 @@
             If z = "0" Then
                 PenZ = New Pen(Color.Black, 1)
                 point1 = New Point(I, 15)
-                point2 = New Point(I, 60)
+                point2 = New Point(I, 65)
                 GraphZ.DrawLine(PenZ, point1, point2)
             Else
                 PenZ = New Pen(Color.White, 1)
                 point1 = New Point(I, 15)
-                point2 = New Point(I, 60)
+                point2 = New Point(I, 65)
                 GraphZ.DrawLine(PenZ, point1, point2)
             End If
         Next
@@ -479,7 +479,7 @@
         'Create Title top of Barcode
         GraphZ.DrawString(Title, New Font("times new roman", 9, FontStyle.Bold), New SolidBrush(Color.Black), 0, 0)
         'Create Text string in bottom
-        GraphZ.DrawString(TheText, New Font("times new roman", 9, FontStyle.Bold), New SolidBrush(Color.DarkBlue), 45, 60)
+        GraphZ.DrawString(TheText, New Font("times new roman", 9, FontStyle.Bold), New SolidBrush(Color.DarkBlue), 45, 65)
 
         Return bmp
     End Function
