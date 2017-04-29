@@ -1,5 +1,5 @@
 ﻿Module barcode
-    Function Code128(ByVal TheText As String, ByVal CodeLetter As String) As Image
+    Function Code128(ByVal TheText As String, ByVal CodeLetter As String, ByVal Title As String) As Image
 
         Dim Binaryz As String = ""
         Dim I As Integer
@@ -449,7 +449,7 @@
         Binaryz = Binaryz & "0011100010100"
 
 
-        Dim bmp As Bitmap = New Bitmap(Len(Binaryz), 60, System.Drawing.Imaging.PixelFormat.Format24bppRgb)
+        Dim bmp As Bitmap = New Bitmap(Len(Binaryz), 80, System.Drawing.Imaging.PixelFormat.Format24bppRgb)
         Dim z As String
         Dim GraphZ As Graphics = Graphics.FromImage(bmp)
         Dim RectZ As Rectangle = New Rectangle(0, 0, bmp.Width, bmp.Height)
@@ -465,19 +465,22 @@
             z = Mid(Binaryz, I, 1)
             If z = "0" Then
                 PenZ = New Pen(Color.Black, 1)
-                point1 = New Point(I, 0)
-                point2 = New Point(I, 40)
+                point1 = New Point(I, 15)
+                point2 = New Point(I, 60)
                 GraphZ.DrawLine(PenZ, point1, point2)
             Else
                 PenZ = New Pen(Color.White, 1)
-                point1 = New Point(I, 0)
-                point2 = New Point(I, 40)
+                point1 = New Point(I, 15)
+                point2 = New Point(I, 60)
                 GraphZ.DrawLine(PenZ, point1, point2)
             End If
         Next
 
-        'Create Graphics in bottom
-        GraphZ.DrawString(TheText, New Font("times new roman", 12, FontStyle.Bold), New SolidBrush(Color.DarkBlue), 20, 40)
+        'Create Title top of Barcode
+        GraphZ.DrawString(Title, New Font("times new roman", 9, FontStyle.Bold), New SolidBrush(Color.Black), 0, 0)
+        'Create Text string in bottom
+        GraphZ.DrawString(TheText, New Font("times new roman", 9, FontStyle.Bold), New SolidBrush(Color.DarkBlue), 45, 60)
+
         Return bmp
     End Function
 

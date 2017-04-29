@@ -40,9 +40,11 @@ Partial Class frmBarcode
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.ImageList2 = New System.Windows.Forms.ImageList(Me.components)
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgImage, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnBarcode
@@ -179,11 +181,20 @@ Partial Class frmBarcode
         Me.ReportViewer1.Size = New System.Drawing.Size(804, 336)
         Me.ReportViewer1.TabIndex = 9
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Location = New System.Drawing.Point(855, 12)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(225, 140)
+        Me.PictureBox1.TabIndex = 10
+        Me.PictureBox1.TabStop = False
+        '
         'frmBarcode
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(825, 750)
+        Me.ClientSize = New System.Drawing.Size(1218, 750)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.ReportViewer1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -193,6 +204,7 @@ Partial Class frmBarcode
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.dgImage, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -213,4 +225,5 @@ Partial Class frmBarcode
     Friend WithEvents Description As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Price As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

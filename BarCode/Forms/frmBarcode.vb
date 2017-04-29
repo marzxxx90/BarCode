@@ -39,12 +39,18 @@ Public Class frmBarcode
             GoTo unloadObj
         End If
         Dim height As Integer = 0
-
+        Dim Description As String, ItemCode As String, BranchCode As String, PT As String, Price As Integer
         Me.Enabled = False
         For cnt = 2 To MaxEntries
-            dgImage.Rows.Add(oSheet.Cells(cnt, 1).Value.ToString, oSheet.Cells(cnt, 2).Value.ToString, Code128(oSheet.Cells(cnt, 3).Value.ToString, "A"), oSheet.Cells(cnt, 4).Value.ToString, oSheet.Cells(cnt, 5).Value.ToString)
+            BranchCode = oSheet.Cells(cnt, 1).Value.ToString
+            PT = oSheet.Cells(cnt, 2).Value.ToString
+            ItemCode = oSheet.Cells(cnt, 3).Value.ToString
+            Description = oSheet.Cells(cnt, 4).Value.ToString
+            Price = oSheet.Cells(cnt, 5).Value.ToString
+
+            dgImage.Rows.Add(BranchCode, PT, Code128(ItemCode, "A", Description), Description, Price)
             Application.DoEvents()
-            Console.WriteLine("Image Size " & Code128(oSheet.Cells(cnt, 3).value.ToString, "A").Size.ToString)
+            'Console.WriteLine("Image Size " & Code128(oSheet.Cells(cnt, 3).value.ToString, "A").Size.ToString)
         Next
 
         Me.Enabled = True
@@ -234,4 +240,6 @@ unloadObj:
 
         Me.ReportViewer1.RefreshReport()
     End Sub
+
+
 End Class
