@@ -44,6 +44,7 @@ Public Class frmBarcode
         For cnt = 2 To MaxEntries
             dgImage.Rows.Add(oSheet.Cells(cnt, 1).Value.ToString, oSheet.Cells(cnt, 2).Value.ToString, Code128(oSheet.Cells(cnt, 3).Value.ToString, "A"), oSheet.Cells(cnt, 4).Value.ToString, oSheet.Cells(cnt, 5).Value.ToString)
             Application.DoEvents()
+            Console.WriteLine("Image Size " & Code128(oSheet.Cells(cnt, 3).value.ToString, "A").Size.ToString)
         Next
 
         Me.Enabled = True
@@ -124,41 +125,6 @@ unloadObj:
         Return bmDest
     End Function
 
-    'Private Sub btnReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReport.Click
-    '    barcode.Clear()
-    '    For Each datarow As DataGridViewRow In dgImage.Rows
-
-    '        myimage = datarow.Cells(2).Value
-    '        Dim mybytearray As Byte()
-    '        Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
-    '        myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
-    '        mybytearray = ms.ToArray()
-
-    '        Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
-
-    '        ' Create a new row
-    '        store = barcodeImage.NewRow
-    '        With store
-    '            .Item("Image") = barcodeBase64
-    '            .Item("Description") = datarow.Cells(3).Value
-    '            .Item("Price") = datarow.Cells(4).Value
-    '            .Item("Pawnticket") = datarow.Cells(1).Value
-    '            .Item("BranchCode") = datarow.Cells(0).Value
-    '        End With
-
-    '        ' Add it
-    '        barcodeImage.Rows.Add(store)
-    '    Next
-
-    '    Dim rds = New ReportDataSource("dsBarcodeImage", barcode.Tables(0))
-    '    Me.ReportViewer1.LocalReport.DataSources.Clear()
-    '    Me.ReportViewer1.LocalReport.DataSources.Add(rds)
-    '    Me.ReportViewer1.LocalReport.ReportPath = "Reports\Report1.rdlc"
-
-    '    Me.ReportViewer1.RefreshReport()
-
-    'End Sub
-
     Private Sub PrintBarcode()
         Dim ans As DialogResult = _
             MsgBox("Do you want to print?", MsgBoxStyle.YesNo + MsgBoxStyle.Information + MsgBoxStyle.DefaultButton2, "Print")
@@ -175,6 +141,7 @@ unloadObj:
         For Each datarow As DataGridViewRow In dgImage.Rows
 
             myimage = datarow.Cells(2).Value
+            'myimage = ResizeImage(myimage, 375, 180)
             Dim mybytearray As Byte()
             Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
             myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
@@ -231,5 +198,40 @@ unloadObj:
             .Columns.Add("Pawnticket", GetType(String))
             .Columns.Add("BranchCode", GetType(String))
         End With
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        barcode.Clear()
+        For Each datarow As DataGridViewRow In dgImage.Rows
+
+            myimage = datarow.Cells(2).Value
+            'myimage = ResizeImage(myimage, 375, 180)
+            Dim mybytearray As Byte()
+            Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
+            myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
+            mybytearray = ms.ToArray()
+
+            Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
+
+            ' Create a new row
+            store = barcodeImage.NewRow
+            With store
+                .Item("Image") = barcodeBase64
+                .Item("Description") = datarow.Cells(3).Value
+                .Item("Price") = datarow.Cells(4).Value
+                .Item("Pawnticket") = datarow.Cells(1).Value
+                .Item("BranchCode") = datarow.Cells(0).Value
+            End With
+
+            ' Add it
+            barcodeImage.Rows.Add(store)
+        Next
+
+        Dim rds = New ReportDataSource("dsBarcodeImage", barcode.Tables(0))
+        Me.ReportViewer1.LocalReport.DataSources.Clear()
+        Me.ReportViewer1.LocalReport.DataSources.Add(rds)
+        Me.ReportViewer1.LocalReport.ReportPath = "Reports\Report1.rdlc"
+
+        Me.ReportViewer1.RefreshReport()
     End Sub
 End Class

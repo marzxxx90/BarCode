@@ -30,6 +30,7 @@ Partial Class frmBarcode
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnBrowse = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.dgImage = New System.Windows.Forms.DataGridView()
         Me.BranchCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Pawnticket = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -96,6 +97,7 @@ Partial Class frmBarcode
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.dgImage)
         Me.GroupBox2.Controls.Add(Me.btnBarcode)
         Me.GroupBox2.Controls.Add(Me.btnPrint)
@@ -105,6 +107,15 @@ Partial Class frmBarcode
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Barcode Info"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(719, 95)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(79, 32)
+        Me.Button1.TabIndex = 10
+        Me.Button1.Text = "Display"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'dgImage
         '
@@ -172,7 +183,7 @@ Partial Class frmBarcode
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(826, 750)
+        Me.ClientSize = New System.Drawing.Size(825, 750)
         Me.Controls.Add(Me.ReportViewer1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -201,4 +212,5 @@ Partial Class frmBarcode
     Friend WithEvents Image As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents Description As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Price As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

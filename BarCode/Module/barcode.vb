@@ -476,8 +476,8 @@
             End If
         Next
 
+        'Create Graphics in bottom
         GraphZ.DrawString(TheText, New Font("times new roman", 12, FontStyle.Bold), New SolidBrush(Color.DarkBlue), 20, 40)
-
         Return bmp
     End Function
 
