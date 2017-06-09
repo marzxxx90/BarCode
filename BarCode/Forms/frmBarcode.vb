@@ -48,7 +48,7 @@ Public Class frmBarcode
             Description = oSheet.Cells(cnt, 4).Value.ToString
             Price = oSheet.Cells(cnt, 5).Value.ToString
 
-            dgImage.Rows.Add(BranchCode, PT, Code128(ItemCode, "A", Description), Description, Price)
+            dgImage.Rows.Add(BranchCode, PT, Code128(ItemCode, "A", Description), Code128(Description, "A", Price), Description, Price)
             Application.DoEvents()
             'Console.WriteLine("Image Size " & Code128(oSheet.Cells(cnt, 3).value.ToString, "A").Size.ToString)
         Next
@@ -147,18 +147,12 @@ unloadObj:
         For Each datarow As DataGridViewRow In dgImage.Rows
 
             myimage = datarow.Cells(2).Value
-            myimage = ResizeImage(myimage, 120, 75)
-            Dim mybytearray As Byte()
-            Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
-            myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
-            mybytearray = ms.ToArray()
-
-            Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
+            'myimage = ResizeImage(myimage, 120, 75)
 
             ' Create a new row
             store = barcodeImage.NewRow
             With store
-                .Item("Image") = barcodeBase64
+                .Item("Image") = ConvertImage(myimage)
                 .Item("Description") = datarow.Cells(3).Value
                 .Item("Price") = datarow.Cells(4).Value
                 .Item("Pawnticket") = datarow.Cells(1).Value
@@ -203,6 +197,7 @@ unloadObj:
             .Columns.Add("Price", GetType(Integer))
             .Columns.Add("Pawnticket", GetType(String))
             .Columns.Add("BranchCode", GetType(String))
+            .Columns.Add("Image2", GetType(String))
         End With
     End Sub
 
@@ -211,32 +206,27 @@ unloadObj:
         For Each datarow As DataGridViewRow In dgImage.Rows
 
             myimage = datarow.Cells(2).Value
-            myimage = ResizeImage(myimage, 120, 80)
-            Dim mybytearray As Byte()
-            Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
-            myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
-            mybytearray = ms.ToArray()
-
-            Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
+            ' myimage = ResizeImage(myimage, 120, 80)
 
             ' Create a new row
             store = barcodeImage.NewRow
             With store
-                .Item("Image") = barcodeBase64
-                .Item("Description") = datarow.Cells(3).Value
-                .Item("Price") = datarow.Cells(4).Value
+                .Item("Image") = ConvertImage(myimage)
+                .Item("Description") = datarow.Cells(4).Value
+                .Item("Price") = datarow.Cells(5).Value
                 .Item("Pawnticket") = datarow.Cells(1).Value
                 .Item("BranchCode") = datarow.Cells(0).Value
+                .Item("Image2") = ConvertImage(datarow.Cells(3).Value)
             End With
 
             ' Add it
             barcodeImage.Rows.Add(store)
         Next
 
-        Dim rds = New ReportDataSource("dsBarcodeImage", barcode.Tables(0))
+        Dim rds = New ReportDataSource("dsBarcode", barcode.Tables(0))
         Me.ReportViewer1.LocalReport.DataSources.Clear()
         Me.ReportViewer1.LocalReport.DataSources.Add(rds)
-        Me.ReportViewer1.LocalReport.ReportPath = "Reports\Report1.rdlc"
+        Me.ReportViewer1.LocalReport.ReportPath = "Reports\rpt_Barcode.rdlc"
 
         Me.ReportViewer1.RefreshReport()
     End Sub
@@ -252,4 +242,14 @@ unloadObj:
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         PictureBox3.Image = Code128(TextBox1.Text, "a", "Sample")
     End Sub
+
+    Private Function ConvertImage(ByVal img As Image)
+        Dim mybytearray As Byte()
+        Dim ms As System.IO.MemoryStream = New System.IO.MemoryStream
+        myimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png)
+        mybytearray = ms.ToArray()
+
+        Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
+        Return barcodeBase64
+    End Function
 End Class

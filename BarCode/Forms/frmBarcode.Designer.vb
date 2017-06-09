@@ -30,23 +30,24 @@ Partial Class frmBarcode
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnBrowse = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.dgImage = New System.Windows.Forms.DataGridView()
-        Me.BranchCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Pawnticket = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Image = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.Description = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Price = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.ImageList2 = New System.Windows.Forms.ImageList(Me.components)
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.Button4 = New System.Windows.Forms.Button()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.BranchCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Pawnticket = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Image = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.Image2 = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.Description = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Price = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgImage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -122,6 +123,40 @@ Partial Class frmBarcode
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Barcode Info"
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(719, 209)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(79, 32)
+        Me.Button2.TabIndex = 14
+        Me.Button2.Text = "Picture 150"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(719, 171)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(79, 32)
+        Me.Button4.TabIndex = 13
+        Me.Button4.Text = "Picture 100"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(719, 284)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox1.TabIndex = 12
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(719, 133)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(79, 32)
+        Me.Button3.TabIndex = 12
+        Me.Button3.Text = "Picture 75"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(719, 95)
@@ -137,7 +172,7 @@ Partial Class frmBarcode
         Me.dgImage.AllowUserToDeleteRows = False
         Me.dgImage.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgImage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgImage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.BranchCode, Me.Pawnticket, Me.Image, Me.Description, Me.Price})
+        Me.dgImage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.BranchCode, Me.Pawnticket, Me.Image, Me.Image2, Me.Description, Me.Price})
         Me.dgImage.Location = New System.Drawing.Point(6, 19)
         Me.dgImage.Name = "dgImage"
         Me.dgImage.ReadOnly = True
@@ -146,38 +181,6 @@ Partial Class frmBarcode
         Me.dgImage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgImage.Size = New System.Drawing.Size(707, 308)
         Me.dgImage.TabIndex = 9
-        '
-        'BranchCode
-        '
-        Me.BranchCode.HeaderText = "Branch Code"
-        Me.BranchCode.Name = "BranchCode"
-        Me.BranchCode.ReadOnly = True
-        '
-        'Pawnticket
-        '
-        Me.Pawnticket.HeaderText = "Pawnticket"
-        Me.Pawnticket.Name = "Pawnticket"
-        Me.Pawnticket.ReadOnly = True
-        '
-        'Image
-        '
-        Me.Image.HeaderText = "Image"
-        Me.Image.Name = "Image"
-        Me.Image.ReadOnly = True
-        Me.Image.Width = 200
-        '
-        'Description
-        '
-        Me.Description.HeaderText = "Description"
-        Me.Description.Name = "Description"
-        Me.Description.ReadOnly = True
-        Me.Description.Width = 200
-        '
-        'Price
-        '
-        Me.Price.HeaderText = "Price"
-        Me.Price.Name = "Price"
-        Me.Price.ReadOnly = True
         '
         'ImageList2
         '
@@ -201,22 +204,6 @@ Partial Class frmBarcode
         Me.PictureBox1.TabIndex = 10
         Me.PictureBox1.TabStop = False
         '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(719, 284)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox1.TabIndex = 12
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(719, 133)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(79, 32)
-        Me.Button3.TabIndex = 12
-        Me.Button3.Text = "Picture 75"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
         'PictureBox2
         '
         Me.PictureBox2.Location = New System.Drawing.Point(855, 158)
@@ -224,15 +211,6 @@ Partial Class frmBarcode
         Me.PictureBox2.Size = New System.Drawing.Size(225, 140)
         Me.PictureBox2.TabIndex = 11
         Me.PictureBox2.TabStop = False
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(719, 171)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(79, 32)
-        Me.Button4.TabIndex = 13
-        Me.Button4.Text = "Picture 100"
-        Me.Button4.UseVisualStyleBackColor = True
         '
         'PictureBox3
         '
@@ -242,14 +220,44 @@ Partial Class frmBarcode
         Me.PictureBox3.TabIndex = 12
         Me.PictureBox3.TabStop = False
         '
-        'Button2
+        'BranchCode
         '
-        Me.Button2.Location = New System.Drawing.Point(719, 209)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(79, 32)
-        Me.Button2.TabIndex = 14
-        Me.Button2.Text = "Picture 150"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.BranchCode.HeaderText = "Branch Code"
+        Me.BranchCode.Name = "BranchCode"
+        Me.BranchCode.ReadOnly = True
+        '
+        'Pawnticket
+        '
+        Me.Pawnticket.HeaderText = "Pawnticket"
+        Me.Pawnticket.Name = "Pawnticket"
+        Me.Pawnticket.ReadOnly = True
+        '
+        'Image
+        '
+        Me.Image.HeaderText = "Image"
+        Me.Image.Name = "Image"
+        Me.Image.ReadOnly = True
+        Me.Image.Width = 200
+        '
+        'Image2
+        '
+        Me.Image2.HeaderText = "Image2"
+        Me.Image2.Name = "Image2"
+        Me.Image2.ReadOnly = True
+        Me.Image2.Width = 200
+        '
+        'Description
+        '
+        Me.Description.HeaderText = "Description"
+        Me.Description.Name = "Description"
+        Me.Description.ReadOnly = True
+        Me.Description.Width = 200
+        '
+        'Price
+        '
+        Me.Price.HeaderText = "Price"
+        Me.Price.Name = "Price"
+        Me.Price.ReadOnly = True
         '
         'frmBarcode
         '
@@ -286,11 +294,6 @@ Partial Class frmBarcode
     Friend WithEvents PrintDocument1 As System.Drawing.Printing.PrintDocument
     Friend WithEvents ImageList2 As System.Windows.Forms.ImageList
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
-    Friend WithEvents BranchCode As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Pawnticket As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Image As System.Windows.Forms.DataGridViewImageColumn
-    Friend WithEvents Description As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Price As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
@@ -299,4 +302,10 @@ Partial Class frmBarcode
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
+    Friend WithEvents BranchCode As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Pawnticket As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Image As System.Windows.Forms.DataGridViewImageColumn
+    Friend WithEvents Image2 As System.Windows.Forms.DataGridViewImageColumn
+    Friend WithEvents Description As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Price As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
