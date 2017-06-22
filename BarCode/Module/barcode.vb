@@ -461,7 +461,7 @@
         Dim PenZ As Pen
         Dim point1 As Point
         Dim point2 As Point
-        For I = 1 To Len(Binaryz)
+        For I = 2 To Len(Binaryz)
             z = Mid(Binaryz, I, 1)
             If z = "0" Then
                 PenZ = New Pen(Color.Black, 1)
