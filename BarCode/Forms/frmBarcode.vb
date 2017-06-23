@@ -15,15 +15,21 @@ Public Class frmBarcode
     Dim store As DataRow
     Dim myimage As Image
 
-    Private Sub btnBarcode_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBarcode.Click
-        If txtPath.Text = "" Then Exit Sub
+    Private Sub btnBrowse_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBrowse.Click
+        ofdIMD.ShowDialog()
+
+        Dim fileName As String = ofdIMD.FileName
+        isDone = False
+
+        If fileName = "" Then Exit Sub
+
         dgImage.Rows.Clear()
         'Load Excel
         Dim oXL As New Excel.Application
         Dim oWB As Excel.Workbook
         Dim oSheet As Excel.Worksheet
 
-        oWB = oXL.Workbooks.Open(txtPath.Text)
+        oWB = oXL.Workbooks.Open(fileName)
         oSheet = oWB.Worksheets(1)
 
         Dim MaxColumn As Integer = oSheet.Cells(1, oSheet.Columns.Count).End(Excel.XlDirection.xlToLeft).column
@@ -65,17 +71,6 @@ unloadObj:
 
         txtPath.Text = ""
         If isDone Then MsgBox("Success", MsgBoxStyle.Information)
-
-    End Sub
-
-    Private Sub btnBrowse_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBrowse.Click
-        ofdIMD.ShowDialog()
-
-        Dim fileName As String = ofdIMD.FileName
-        isDone = False
-
-        If fileName = "" Then Exit Sub
-        txtPath.Text = fileName
     End Sub
 
     Private Function TemplateCheck(ByVal headers() As String) As Boolean
@@ -87,11 +82,6 @@ unloadObj:
         If HashString(mergeHeaders) = INTEGRITY_CHECK Then Return True
         Return False
     End Function
-
-    Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
-        PictureBox1.Image = dgImage.SelectedRows(0).Cells(2).Value
-        PictureBox2.Image = dgImage.SelectedRows(0).Cells(3).Value
-    End Sub
 
     'Select Source of Image, Image Pixel width, Image Pexel Height
     Public Overloads Shared Function ResizeImage(ByVal bmSource As Drawing.Bitmap, ByVal TargetWidth As Int32, ByVal TargetHeight As Int32) As Drawing.Bitmap
@@ -153,11 +143,13 @@ unloadObj:
             ' Create a new row
             store = barcodeImage.NewRow
             With store
-                .Item("Image") = ConvertImage(myimage)
-                .Item("Description") = datarow.Cells(3).Value
-                .Item("Price") = datarow.Cells(4).Value
-                .Item("Pawnticket") = datarow.Cells(1).Value
                 .Item("BranchCode") = datarow.Cells(0).Value
+                .Item("Pawnticket") = datarow.Cells(1).Value
+                .Item("Image") = ConvertImage(myimage)
+                .Item("Image2") = datarow.Cells(3).Value
+                .Item("Description") = datarow.Cells(4).Value
+                .Item("Price") = datarow.Cells(5).Value
+
             End With
 
             ' Add it
@@ -211,12 +203,12 @@ unloadObj:
             ' Create a new row
             store = barcodeImage.NewRow
             With store
+                .Item("BranchCode") = datarow.Cells(0).Value
+                .Item("Pawnticket") = datarow.Cells(1).Value
                 .Item("Image") = ConvertImage(myimage)
                 .Item("Image2") = ConvertImage(datarow.Cells(3).Value)
                 .Item("Description") = datarow.Cells(4).Value
                 .Item("Price") = datarow.Cells(5).Value
-                .Item("Pawnticket") = datarow.Cells(1).Value
-                .Item("BranchCode") = datarow.Cells(0).Value
 
             End With
 
@@ -226,23 +218,12 @@ unloadObj:
   
 
         Dim rds = New ReportDataSource("dsBarcode", barcode.Tables(0))
-        Me.ReportViewer1.LocalReport.DataSources.Clear()
-        Me.ReportViewer1.LocalReport.DataSources.Add(rds)
-        Me.ReportViewer1.LocalReport.ReportPath = "Reports\rpt_Barcode.rdlc"
+        frmReports.ReportViewer1.LocalReport.DataSources.Clear()
+        frmReports.ReportViewer1.LocalReport.DataSources.Add(rds)
+        frmReports.ReportViewer1.LocalReport.ReportPath = "Reports\rpt_Barcode.rdlc"
 
-        Me.ReportViewer1.RefreshReport()
-    End Sub
-
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-        PictureBox1.Image = ResizeImage(Code128(TextBox1.Text, "a", "Sample"), 120, 80)
-    End Sub
-
-    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
-        PictureBox2.Image = ResizeImage(Code128(TextBox1.Text, "a", "Sample"), 178, 80)
-    End Sub
-
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        PictureBox3.Image = Code128(TextBox1.Text, "a", "Sample")
+        frmReports.ReportViewer1.RefreshReport()
+        frmReports.Show()
     End Sub
 
     Private Function ConvertImage(ByVal img As Image) As String
