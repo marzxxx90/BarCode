@@ -54,7 +54,7 @@ Public Class frmBarcode
             Description = oSheet.Cells(cnt, 4).Value.ToString
             Price = oSheet.Cells(cnt, 5).Value.ToString
 
-            dgImage.Rows.Add(BranchCode, PT, Code128(ItemCode, "A", PT), Code128(Description, "A", Price), Description, Price)
+            dgImage.Rows.Add(BranchCode, PT, Code128(ItemCode, "A", PT), Description, Price)
             Application.DoEvents()
             'Console.WriteLine("Image Size " & Code128(oSheet.Cells(cnt, 3).value.ToString, "A").Size.ToString)
         Next
@@ -207,9 +207,9 @@ unloadObj:
                 .Item("BranchCode") = datarow.Cells(0).Value
                 .Item("Pawnticket") = datarow.Cells(1).Value
                 .Item("Image") = ConvertImage(myimage)
-                .Item("Image2") = ConvertImage(datarow.Cells(3).Value)
-                .Item("Description") = datarow.Cells(4).Value
-                .Item("Price") = datarow.Cells(5).Value
+                ' .Item("Image2") = ConvertImage(datarow.Cells(3).Value)
+                .Item("Description") = datarow.Cells(3).Value
+                .Item("Price") = datarow.Cells(4).Value
 
             End With
 

@@ -448,8 +448,8 @@
         End Select
         Binaryz = Binaryz & "0011100010100"
 
-
-        Dim bmp As Bitmap = New Bitmap(Len(Binaryz), 80, System.Drawing.Imaging.PixelFormat.Format24bppRgb)
+        'System.Drawing.Imaging.PixelFormat.Format24bppRgb
+        Dim bmp As Bitmap = New Bitmap(Len(Binaryz), 80, Imaging.PixelFormat.Format24bppRgb)
         Dim z As String
         Dim GraphZ As Graphics = Graphics.FromImage(bmp)
         Dim RectZ As Rectangle = New Rectangle(0, 0, bmp.Width, bmp.Height)

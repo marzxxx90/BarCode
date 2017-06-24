@@ -33,7 +33,6 @@ Partial Class frmBarcode
         Me.BranchCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Pawnticket = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Image = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.Image2 = New System.Windows.Forms.DataGridViewImageColumn()
         Me.Description = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Price = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
@@ -109,7 +108,7 @@ Partial Class frmBarcode
         Me.dgImage.AllowUserToDeleteRows = False
         Me.dgImage.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgImage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgImage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.BranchCode, Me.Pawnticket, Me.Image, Me.Image2, Me.Description, Me.Price})
+        Me.dgImage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.BranchCode, Me.Pawnticket, Me.Image, Me.Description, Me.Price})
         Me.dgImage.Location = New System.Drawing.Point(6, 19)
         Me.dgImage.Name = "dgImage"
         Me.dgImage.ReadOnly = True
@@ -137,13 +136,6 @@ Partial Class frmBarcode
         Me.Image.Name = "Image"
         Me.Image.ReadOnly = True
         Me.Image.Width = 200
-        '
-        'Image2
-        '
-        Me.Image2.HeaderText = "Image2"
-        Me.Image2.Name = "Image2"
-        Me.Image2.ReadOnly = True
-        Me.Image2.Width = 200
         '
         'Description
         '
@@ -185,7 +177,6 @@ Partial Class frmBarcode
     Friend WithEvents BranchCode As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Pawnticket As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Image As System.Windows.Forms.DataGridViewImageColumn
-    Friend WithEvents Image2 As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents Description As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Price As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
