@@ -134,6 +134,7 @@ unloadObj:
         barcode.Clear()
 
         If oPS Is Nothing Then Exit Sub
+        If dgImage.Rows.Count = 0 Then Exit Sub
 
         For Each datarow As DataGridViewRow In dgImage.Rows
 
@@ -235,4 +236,8 @@ unloadObj:
         Dim barcodeBase64 As String = Convert.ToBase64String(mybytearray)
         Return barcodeBase64
     End Function
+
+    Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
+        PrintBarcode()
+    End Sub
 End Class

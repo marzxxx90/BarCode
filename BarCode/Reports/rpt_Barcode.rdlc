@@ -145,16 +145,37 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Image Name="Image3">
-                      <Source>Database</Source>
-                      <Value>=code.GetBarcodeImageHeader(Fields!Image2.Value)</Value>
-                      <MIMEType>image/jpeg</MIMEType>
+                    <Textbox Name="Price">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>="Php " &amp; FormatNumber(Fields!Price.Value,2)</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                                <Format>#,0.00;(#,0.00);'-'</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Price</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>None</Style>
                         </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                    </Image>
+                    </Textbox>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
