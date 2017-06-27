@@ -332,18 +332,16 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>2in</Height>
+    <Height>0.83333in</Height>
     <Style />
   </Body>
   <Code>Public Function GetBarcodeImageHeader(ByVal barcodebase64 As String) As Byte()     
 	Return Convert.FromBase64String(barcodebase64)
 End Function    </Code>
-  <Width>3.52083in</Width>
+  <Width>3in</Width>
   <Page>
-    <LeftMargin>0.5in</LeftMargin>
-    <RightMargin>0.5in</RightMargin>
-    <TopMargin>0.5in</TopMargin>
-    <BottomMargin>0.5in</BottomMargin>
+    <PageHeight>1in</PageHeight>
+    <PageWidth>4in</PageWidth>
     <Style />
   </Page>
   <rd:ReportID>7db03d5b-3367-4a49-b1f0-885c9cafd3be</rd:ReportID>
